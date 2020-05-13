@@ -1,0 +1,94 @@
+
+extends ../layout.pug
+
+block prepend styles
+    link(rel='stylesheet' href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css')
+
+block content
+    div(class='breadcrumb')
+        li Додавання товару в колекцію
+    form(id='shop-add-form' name='shop-add-form' class='form-inline' action='/addDelivered_goods' method='POST')
+        div(class='form-group')
+            div(class='col-md-3')
+                label(for='name') Name
+            div(class='col-md-9')
+                input(id='name' name='name' value='' class='form-control')
+        div(class='form-group')
+            div(class='col-md-3')
+                label(for='name') Planet Name
+            div(class='col-md-9')
+                input(id='' name='planet_name' value='' class='form-control')
+        div(class='form-group')
+            div(class='col-md-3')
+                label(for='name') Station Code
+            div(class='col-md-9')
+                input(id=' station_code' name='station_code' value='' class='form-control')
+        div(class='form-group')
+            div(class='col-md-12')
+                button(type='submit' class='btn btn-primary') Add
+        h4= info
+    div(class='breadcrumb')
+        li Редагування товару в колекції
+    form(id='shop-edit-form' name='shop-add-form' class='form-inline' action='/editDelivered_goods' method='POST')
+        div(class='')
+            div(class='col-md-3')
+                label(for='') Goods
+            div(class='col-md-6')
+                select#OurShipEdit(name = 'index')
+                    each val, index in delivered_goods
+                        option= index + '. Назва: ' + val.name + '. Назва планети: ' + val.planet_name + '. Код станції: ' + val.station_code
+        div
+            div(class='form-group')
+
+                div(class='col-md-3')
+                    label(for='name') New Name
+                div(class='col-md-9')
+                    input( name='name' value='' class='form-control')
+            div(class='form-group')
+                div(class='col-md-3')
+                    label(for='name') New Planet
+                div(class='col-md-9')
+                    input( name='weight' value='' class='form-control')
+            div(class='form-group')
+                div(class='col-md-3')
+                    label(for='station_name') New Station
+                div(class='col-md-9')
+                    input( name='station_code' value='' class='form-control')
+            div(class='form-group')
+            div(class='form-group')
+                div(class='col-md-12')
+                    button(type='submit' class='btn btn-primary') Edit
+
+    div(class='breadcrumb')
+        li Видалення товару з колекції
+    form(id='shop-delete-form' name='shop-add-form' class='form-inline' action='/deleteDelivered_goods' method='POST')
+        div(class='')
+            div(class='col-md-3')
+                label(for='') Goods
+            div(class='col-md-6')
+                select(name = 'index')
+                    each val, index in delivered_goods
+                        option= index + '. Назва: ' + val.name + '. Назва планети: ' + val.planet_name + '. Код станції: ' + val.station_code
+                button(type='submit' class='btn btn-primary') Delete
+                p= info
+
+    div(class='breadcrumb')
+        li Пошук одного товару в колекції
+    form(id='shop-find-form' name='shop-add-form' class='form-inline' action='/findDelivered_goods' method='POST')
+        div(class='')
+            div(class='form-group')
+
+                div(class='col-md-3')
+                    label(for='') Name
+                div(class='col-md-9')
+                    input( name='name' value='' class='form-control')
+
+            div(class='form-group')
+                div(class='col-md-12')
+                    button(type='submit' class='btn btn-primary') Find
+            p= find
+
+block append scripts
+    script(src='/static/js/models/shop.js')
+    script(src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+    script(src='/static/js/views/shop.js')
